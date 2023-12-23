@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=title%></title>
+</head>
+<body>
+
+    <h1>Geolocation Example</h1>
+
+<form action="/home" method="get">
+    
+    <label for="">Get the wether of my location</label>
+    <input type="number"  id="lat" name="latitude" value="" >
+    <input type="number"  id="lon" name="longitude" value="">
+
+    <button type="submit">Submit</button>
+
+</form>
+
+
+<label for="">temperature is :</label>
+<em><%=temp%></em>
+<label for="">wind is :</label>
+<em><%=wind%></em>
+<label for="">sky is :</label>
+<em><%=sky%></em>
+
+
+
+<script>
+
+if ("geolocation" in navigator) {
+    console.log("Geolocation is supported.");
+
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+} else {
+    console.log("Geolocation is not supported by your browser.");
+}
+
+function successCallback(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+
+    console.log("Latitude: " + latitude);
+    console.log("Longitude: " + longitude);
+
+    document.getElementById("lat").value = latitude;
+    document.getElementById("lon").value = longitude;
+
+
+}
+
+function errorCallback(error) {
+    console.error("Error occurred:", error);
+
+    switch (error.code) {
+        case error.PERMISSION_DENIED:
+            console.log("User denied the request for Geolocation.");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            console.log("Location information is unavailable.");
+            break;
+        case error.TIMEOUT:
+            console.log("The request to get user location timed out.");
+            break;
+        default:
+            console.log("An unknown error occurred.");
+            break;
+    }
+}
+ 
+
+
+
+</script>
+
+    
+</body>
+</html>
